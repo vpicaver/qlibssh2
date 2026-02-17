@@ -351,8 +351,11 @@ std::error_code Ssh2Client::checkKnownHosts() const
     std::error_code result = ssh2_success;
     if (fingerprint) {
         struct libssh2_knownhost* host = nullptr;
+        const QByteArray hostForCheck = peerName().isEmpty()
+            ? peerAddress().toString().toUtf8()
+            : peerName().toUtf8();
         const int check = libssh2_knownhost_check(known_hosts_,
-                                                  qPrintable(peerAddress().toString()),
+                                                  hostForCheck.constData(),
                                                   fingerprint,
                                                   length,
                                                   LIBSSH2_KNOWNHOST_TYPE_PLAIN | LIBSSH2_KNOWNHOST_KEYENC_RAW,

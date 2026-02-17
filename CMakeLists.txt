@@ -4,6 +4,7 @@ project(QLibssh2 LANGUAGES CXX)
 
 find_package(Qt6 REQUIRED
     Core
+    CorePrivate
     Network
 )
 
@@ -45,7 +46,7 @@ target_link_libraries(qlibssh2
         Qt6::Network
         Libssh2::libssh2
     PRIVATE
-        Qt::CorePrivate
+        Qt6::CorePrivate
 )
 
 target_compile_features(qlibssh2 PUBLIC cxx_std_17)
